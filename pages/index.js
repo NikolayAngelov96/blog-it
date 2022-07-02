@@ -1,5 +1,3 @@
-import Layout from "../components/Layout";
-
 export default function Home() {
   return (
     <div className="w-3/4 mx-auto">
