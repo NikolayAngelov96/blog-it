@@ -48,8 +48,11 @@ const Register = () => {
         </form>
 
         <p className="text-center mt-8 font-bold">
-          You have account already?
-          <a className="text-[#3b49df]">Login here</a>.
+          You have account already?{" "}
+          <Link href={`/login`}>
+            <a className="text-[#3b49df]">Login here</a>
+          </Link>
+          .
         </p>
       </div>
     </section>

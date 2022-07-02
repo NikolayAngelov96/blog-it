@@ -28,21 +28,19 @@ const Navbar = () => {
         {/* <!-- Guest Nav --> */}
         <div className="flex gap-2 items-center">
           <li className="hidden md:block">
-            <a
-              href="#"
-              className="text-[#626262] text-lg hover:bg-[#EBECFC] px-4 py-2 rounded hover:text-[#3b49df] hover:underline"
-            >
-              Log in
-            </a>
+            <Link href={`/login`}>
+              <a className="text-[#626262] text-lg hover:bg-[#EBECFC] px-4 py-2 rounded hover:text-[#3b49df] hover:underline">
+                Log in
+              </a>
+            </Link>
           </li>
 
           <li>
-            <a
-              href="#"
-              className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]"
-            >
-              Create account
-            </a>
+            <Link href={`/register`}>
+              <a className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]">
+                Create account
+              </a>
+            </Link>
           </li>
         </div>
 
