@@ -1,6 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const Navbar = () => {
+  const user = null;
+
   return (
     <nav className="bg-white py-2">
       <ul className="px-[10vw] flex justify-between items-center">
@@ -25,47 +28,53 @@ const Navbar = () => {
           </li>
         </div>
 
-        {/* <!-- Guest Nav --> */}
-        <div className="flex gap-2 items-center">
-          <li className="hidden md:block">
-            <Link href={`/login`}>
-              <a className="text-[#626262] text-lg hover:bg-[#EBECFC] px-4 py-2 rounded hover:text-[#3b49df] hover:underline">
-                Log in
+        {user && (
+          <div className="flex gap-2 items-center">
+            <li>
+              <button className="px-4 py-2 rounded text-[#7f8893] hover:underline hover:bg-[#e5e5e5] hover:text-[#3b49df]">
+                Sign out
+              </button>
+            </li>
+
+            <li>
+              <a
+                href="#"
+                className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]"
+              >
+                Write Post
               </a>
-            </Link>
-          </li>
+            </li>
 
-          <li>
-            <Link href={`/register`}>
-              <a className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]">
-                Create account
-              </a>
-            </Link>
-          </li>
-        </div>
+            <li>
+              <Image
+                src={`/img/hacker.jpg`}
+                width={60}
+                height={60}
+                alt="profile img"
+              />
+            </li>
+          </div>
+        )}
 
-        {/* <!-- User Nav --> */}
-        {/* <div className="flex gap-2 items-center">
-          <li>
-            <button
-              className="px-4 py-2 rounded text-[#7f8893] hover:underline hover:bg-[#e5e5e5] hover:text-[#3b49df]"
-            >
-              Sign out
-            </button>
-          </li>
+        {!user && (
+          <div className="flex gap-2 items-center">
+            <li className="hidden md:block">
+              <Link href={`/login`}>
+                <a className="text-[#626262] text-lg hover:bg-[#EBECFC] px-4 py-2 rounded hover:text-[#3b49df] hover:underline">
+                  Log in
+                </a>
+              </Link>
+            </li>
 
-          <li>
-            <a
-              href="#"
-              className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]"
-              >Write Post</a
-            >
-          </li>
-
-          <li className="w-[60px]">
-            <img src="/img/hacker.jpg" alt="profile pic" />
-          </li>
-        </div> */}
+            <li>
+              <Link href={`/register`}>
+                <a className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]">
+                  Create account
+                </a>
+              </Link>
+            </li>
+          </div>
+        )}
       </ul>
     </nav>
   );
