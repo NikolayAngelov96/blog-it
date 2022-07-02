@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Register = () => {
   return (
-    <section className="bg-white border border-[#dfdfdf] w-1/2 mx-auto p-12 rounded-md">
+    <section className="bg-white border border-[#dfdfdf] md:w-1/2 mx-auto p-12 rounded-md">
       <h1 className="uppercse font-bold text-3xl text-center mb-8">
         Welcome to Dev Community
       </h1>
