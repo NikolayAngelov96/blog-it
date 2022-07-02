@@ -1,7 +1,15 @@
+import toast from "react-hot-toast";
+
 export default function Home() {
   return (
     <div className="w-3/4 mx-auto">
       <h1 className="font-bold uppercase text-3xl text-center mb-12 ">Feed</h1>
+      <button
+        className="p-4 bg-red-400"
+        onClick={() => toast.success("Successful toast gj!!")}
+      >
+        Click for toast
+      </button>
       <div className="border border-[#b5bdc4] p-8 rounded bg-white">
         <a href="#" className="font-bold p-1  hover:bg-[#F6F6F6] rounded">
           {" "}
