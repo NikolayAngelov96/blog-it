@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// Add posts = ref('Post');
+// We might need pointer to check if user already liked a Post
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -18,6 +18,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  posts: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Post",
+    },
+  ],
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);
