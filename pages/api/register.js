@@ -43,8 +43,6 @@ export default async function handler(req, res) {
         throw new Error("User with that email or username already exist");
       }
 
-      console.log(SALT_ROUNDS);
-      console.log(JWT_SECRET);
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
       const createdUser = await User.create({

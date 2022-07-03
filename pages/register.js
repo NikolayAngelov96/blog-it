@@ -11,7 +11,10 @@ const Register = () => {
   } = useForm();
   const onSubmitHandler = async (data) => {
     console.log(data);
-    const res = await fetch("http://localhost:3000/api/register");
+    const res = await fetch("http://localhost:3000/api/register", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
   };
 
   return (
