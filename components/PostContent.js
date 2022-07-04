@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
@@ -6,6 +7,9 @@ const PostContent = ({ post, user }) => {
 
   return (
     <div>
+      <Head>
+        <title>{post.title}</title>
+      </Head>
       <h1 className="font-bold text-3xl my-4">{post?.title}</h1>
       <span className="text-sm">
         Written by{" "}
