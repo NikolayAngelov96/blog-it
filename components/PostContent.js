@@ -15,7 +15,7 @@ const PostContent = ({ post, user }) => {
         on {createdAt}
       </span>
 
-      <div className="my-4">
+      <div className="my-4 prose">
         <ReactMarkdown>{post?.content}</ReactMarkdown>
       </div>
     </div>
