@@ -1,28 +1,47 @@
-import toast from "react-hot-toast";
+import dbConnect from "../lib/dbConnect";
+import Post from "../models/Post";
+import { useState } from "react";
+import PostFeed from "../components/PostFeed";
+import Loader from "../components/Loader";
+import User from "../models/User";
 
-export default function Home() {
+// add pagination with limit() and skip() maybe?
+const LIMIT = 1;
+
+export async function getServerSideProps() {
+  await dbConnect();
+
+  await User.find({});
+
+  const postsDoc = await Post.find({})
+    .sort({ createdAt: -1 })
+    .populate("owner")
+    .lean();
+
+  const posts = postsDoc.map((post) => {
+    post._id = post._id.toString();
+
+    post.owner._id = post.owner._id.toString();
+
+    post.createdAt = post.createdAt.getTime();
+    post.updatedAt = post.updatedAt.getTime();
+
+    return post;
+  });
+  return {
+    props: { posts },
+  };
+}
+
+export default function Home(props) {
+  const [posts, setPosts] = useState(props.posts);
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className="w-3/4 mx-auto">
-      <h1 className="font-bold uppercase text-3xl text-center mb-12 ">Feed</h1>
-      <button
-        className="p-4 bg-red-400"
-        onClick={() => toast.success("Successful toast gj!!")}
-      >
-        Click for toast
-      </button>
-      <div className="border border-[#b5bdc4] p-8 rounded bg-white">
-        <a href="#" className="font-bold p-1  hover:bg-[#F6F6F6] rounded">
-          {" "}
-          bobbysue{" "}
-        </a>
-        <h2 className="my-4 font-bold text-xl hover:text-[#3b49df] cursor-pointer">
-          I Like Turtles
-        </h2>
-        <div className="flex justify-between">
-          <span>Comments: 5</span>
-          <span> 💗 0 Hearts </span>
-        </div>
-      </div>
+      <PostFeed posts={posts} />
+
+      <Loader show={loading} />
     </div>
   );
 }
