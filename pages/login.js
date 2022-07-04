@@ -1,13 +1,29 @@
 import Link from "next/link";
 
 const Login = () => {
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    console.log(email, password);
+    const res = await fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+  };
   return (
     <div className="bg-white border border-[#dfdfdf] md:w-1/2 mx-auto p-12 rounded-md">
       <h1 className="uppercse font-bold text-3xl text-center mb-8">
         Welcome to Dev Community
       </h1>
       <div className="pb-12">
-        <form method="post" className="flex flex-col items-center gap-2">
+        <form
+          className="flex flex-col items-center gap-2"
+          onSubmit={onSubmitHandler}
+        >
           <label htmlFor="email" className="w-full font-bold">
             Email
           </label>
