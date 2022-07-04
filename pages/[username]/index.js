@@ -11,16 +11,18 @@ export async function getServerSideProps({ query }) {
   // Post find() called because next throws an Error(maybe something with imports)
   Post.find({});
   const user = await User.findOne({ username }).populate("posts").lean();
+
+  if (!user) {
+    return {
+      notFound: true,
+    };
+  }
   user._id = user._id.toString();
 
-  let posts = null;
-
-  if (user) {
-    posts = user.posts;
-    posts = posts.map((doc) => {
-      doc._id = doc._id.toString();
-    });
-  }
+  let posts = user.posts;
+  posts = posts.map((doc) => {
+    doc._id = doc._id.toString();
+  });
 
   return {
     props: { user, posts },

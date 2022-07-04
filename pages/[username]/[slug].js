@@ -9,17 +9,25 @@ export async function getServerSideProps({ params }) {
   await dbConnect();
 
   const user = await User.findOne({ username }).lean();
+
+  if (!user) {
+    return {
+      notFound: true,
+    };
+  }
   user._id = user._id.toString();
 
-  let post;
+  let post = await Post.findOne({ slug }).lean();
 
-  if (user) {
-    post = await Post.findOne({ slug }).lean();
-    post._id = post._id.toString();
-    post.owner = post.owner.toString();
-    post.createdAt = post.createdAt.getTime();
-    post.updatedAt = post.updatedAt.getTime();
+  if (!post) {
+    return {
+      notFound: true,
+    };
   }
+  post._id = post._id.toString();
+  post.owner = post.owner.toString();
+  post.createdAt = post.createdAt.getTime();
+  post.updatedAt = post.updatedAt.getTime();
 
   return {
     props: { post, user },
