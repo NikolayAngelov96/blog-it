@@ -1,35 +1,10 @@
 import bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
 import { validateUserData } from "../../lib/validateInput";
+import { createToken } from "../../lib/createJwtToken";
 import dbConnect from "../../lib/dbConnect";
 import User from "../../models/User";
 
 const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
-const JWT_SECRET = process.env.JWT_SECRET;
-
-const createToken = (user) => {
-  const payload = {
-    _id: user._id,
-    username: user.username,
-    email: user.email,
-  };
-
-  const options = {
-    expiresIn: "2d",
-  };
-
-  const tokenPromise = new Promise((resolve, reject) => {
-    jwt.sign(payload, JWT_SECRET, options, (err, decodedToken) => {
-      if (err) {
-        reject(err);
-      }
-
-      resolve(decodedToken);
-    });
-  });
-
-  return tokenPromise;
-};
 
 export default async function handler(req, res) {
   if (req.method == "POST") {
@@ -52,7 +27,7 @@ export default async function handler(req, res) {
       });
       const token = await createToken(createdUser);
 
-      res.status(201).json({ email, username, token });
+      res.status(201).json({ email, username, token, _id: createdUser._id });
     } catch (err) {
       console.log(err);
       res.status(400).json({ message: err.message });
