@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const errorStyles = "border-red-500";
 
@@ -9,12 +12,35 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const { setUserData } = useAuthContext();
+
+  const router = useRouter();
+
   const onSubmitHandler = async (data) => {
-    console.log(data);
-    const res = await fetch("http://localhost:3000/api/register", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+    try {
+      const res = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const resData = await res.json();
+
+      if (res.ok != true) {
+        throw new Error(resData.message);
+      }
+
+      setUserData(resData);
+
+      toast.success("You registered successfully");
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -24,7 +50,6 @@ const Register = () => {
       </h1>
       <div className="pb-12">
         <form
-          method="post"
           className="flex flex-col items-center gap-2"
           onSubmit={handleSubmit(onSubmitHandler)}
         >

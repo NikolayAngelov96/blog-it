@@ -1,6 +1,12 @@
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
+  const { setUserData } = useAuthContext();
+  const router = useRouter();
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -9,10 +15,28 @@ const Login = () => {
     const password = formData.get("password");
 
     console.log(email, password);
-    const res = await fetch("http://localhost:3000/api/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (res.ok != true) {
+        throw new Error(data.message);
+      }
+
+      setUserData(data);
+
+      toast.success("You logged in successfully");
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
+    }
   };
   return (
     <div className="bg-white border border-[#dfdfdf] md:w-1/2 mx-auto p-12 rounded-md">

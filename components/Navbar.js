@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { useAuthContext } from "../contexts/AuthContext";
+
 const Navbar = () => {
-  const user = null;
+  const { user } = useAuthContext();
 
   return (
     <nav className="bg-white py-2">
