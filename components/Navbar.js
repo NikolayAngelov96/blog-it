@@ -5,6 +5,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
   const { user } = useAuthContext();
+  console.log(user);
 
   return (
     <nav className="bg-white py-2">
@@ -39,12 +40,11 @@ const Navbar = () => {
             </li>
 
             <li>
-              <a
-                href="#"
-                className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]"
-              >
-                Write Post
-              </a>
+              <Link href="/admin">
+                <a className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]">
+                  Write Post
+                </a>
+              </Link>
             </li>
 
             <li>
