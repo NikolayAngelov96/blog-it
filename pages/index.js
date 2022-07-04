@@ -6,12 +6,12 @@ import Loader from "../components/Loader";
 import User from "../models/User";
 
 // add pagination with limit() and skip() maybe?
-const LIMIT = 1;
 
 export async function getServerSideProps() {
   await dbConnect();
 
-  await User.find({});
+  // hack because of some Error caused by imports?
+  User.find({});
 
   const postsDoc = await Post.find({})
     .sort({ createdAt: -1 })
@@ -34,12 +34,11 @@ export async function getServerSideProps() {
 }
 
 export default function Home(props) {
-  const [posts, setPosts] = useState(props.posts);
   const [loading, setLoading] = useState(false);
 
   return (
     <div className="w-3/4 mx-auto">
-      <PostFeed posts={posts} />
+      <PostFeed posts={props.posts} />
 
       <Loader show={loading} />
     </div>
