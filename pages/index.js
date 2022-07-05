@@ -13,21 +13,13 @@ export async function getServerSideProps() {
   // hack because of some Error caused by imports?
   User.find({});
 
-  const postsDoc = await Post.find({})
+  const postsDoc = await Post.find({ published: true })
     .sort({ createdAt: -1 })
     .populate("owner")
     .lean();
 
-  const posts = postsDoc.map((post) => {
-    post._id = post._id.toString();
+  const posts = JSON.parse(JSON.stringify(postsDoc));
 
-    post.owner._id = post.owner._id.toString();
-
-    post.createdAt = post.createdAt.getTime();
-    post.updatedAt = post.updatedAt.getTime();
-
-    return post;
-  });
   return {
     props: { posts },
   };

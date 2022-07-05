@@ -8,14 +8,15 @@ export async function getServerSideProps({ params }) {
 
   await dbConnect();
 
-  const user = await User.findOne({ username }).lean();
+  const userDoc = await User.findOne({ username }).lean();
 
-  if (!user) {
+  if (!userDoc) {
     return {
       notFound: true,
     };
   }
-  user._id = user._id.toString();
+
+  const user = JSON.parse(JSON.stringify(userDoc));
 
   let post = await Post.findOne({ slug }).lean();
 
