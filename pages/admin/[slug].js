@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import AuthCheck from "../../components/AuthCheck";
 import dbConnect from "../../lib/dbConnect";
 import Post from "../../models/Post";
+import { AuthContext, useAuthContext } from "../../contexts/AuthContext";
 
 export async function getServerSideProps({ params }) {
   const { slug } = params;
@@ -41,7 +42,7 @@ const PostManager = ({ post }) => {
 
   console.log(post);
   return (
-    <div className="flex">
+    <div className="flex gap-4">
       <section className="w-3/4">
         <h1 className="text-3xl mb-4">{post.title}</h1>
         <p>ID: {post.slug}</p>
@@ -49,9 +50,12 @@ const PostManager = ({ post }) => {
         <PostForm defaultValues={post} preview={preview} />
       </section>
 
-      <aside>
-        <h3>Tools</h3>
-        <button onClick={() => setPreview(!preview)}>
+      <aside className="w-1/4">
+        <h3 className="font-bold text-2xl mb-8">Tools</h3>
+        <button
+          className="px-4 py-2 bg-[#3b49df] text-white rounded w-1/2"
+          onClick={() => setPreview(!preview)}
+        >
           {preview ? "Edit" : "Preview"}
         </button>
       </aside>
@@ -65,12 +69,26 @@ const PostForm = ({ defaultValues, preview }) => {
     mode: "onChange",
   });
 
-  console.log(defaultValues);
-  console.log(preview);
+  const { user } = useAuthContext();
+
   const updatePost = async ({ content, published }) => {
-    // TODO: fetch data to /api/post/edit
-    // reset({content, published});
-    // toast.success('Post updated successfully');
+    try {
+      const res = await fetch("http://localhost:3000/api/post/update", {
+        method: "POST",
+        headers: {
+          "X-Authorization": user.token,
+        },
+        body: JSON.stringify({ content, published, postId: defaultValues._id }),
+      });
+
+      const data = await res.json();
+
+      reset({ content, published });
+
+      toast.success("Post updated successfully");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
