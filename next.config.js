@@ -1,6 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-}
+};
 
-module.exports = nextConfig
+module.exports = {
+  nextConfig,
+  async headers() {
+    return [
+      {
+        source: "/post/create",
+        headers: [
+          {
+            key: "X-Authorization",
+            value: "",
+          },
+        ],
+      },
+    ];
+  },
+};
