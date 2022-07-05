@@ -5,7 +5,6 @@ import { useAuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
   const { user } = useAuthContext();
-  console.log(user);
 
   return (
     <nav className="bg-white py-2">

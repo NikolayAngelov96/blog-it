@@ -14,7 +14,6 @@ const Login = () => {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    console.log(email, password);
     try {
       const res = await fetch("http://localhost:3000/api/login", {
         method: "POST",
