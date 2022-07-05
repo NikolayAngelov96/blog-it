@@ -16,6 +16,15 @@ module.exports = {
           },
         ],
       },
+      {
+        source: "/post",
+        headers: [
+          {
+            key: "X-Authorization",
+            value: "",
+          },
+        ],
+      },
     ];
   },
 };
