@@ -19,7 +19,9 @@ export default async function handler(req, res) {
       await Post.findByIdAndUpdate(postId, { content, published });
 
       res.status(200).json({ message: "Successfully updated" });
-    } catch (err) {}
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
   } else {
     res.status(400).json({ message: "Invalid request type" });
   }
