@@ -1,14 +1,16 @@
-import AuthCheck from "../../components/AuthCheck";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import kebabCase from "lodash.kebabcase";
 import toast from "react-hot-toast";
+import AuthCheck from "../../components/AuthCheck";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const AdminCreatePage = () => {
   const { user } = useAuthContext();
   const [title, setTitle] = useState("");
+  const router = useRouter();
 
-  const isValid = title.length > 3 && title.length < 50;
+  const isValid = title.length > 2 && title.length < 50;
 
   const slug = encodeURI(kebabCase(title));
 
@@ -22,15 +24,28 @@ const AdminCreatePage = () => {
       content: "# hello world",
     };
 
-    const res = await fetch("http://localhost:3000/api/post/create", {
-      headers: {
-        "X-Authorization": user.token,
-      },
-      method: "POST",
-      body: JSON.stringify(postData),
-    });
+    try {
+      const res = await fetch("http://localhost:3000/api/post/create", {
+        headers: {
+          "X-Authorization": user.token,
+        },
+        method: "POST",
+        body: JSON.stringify(postData),
+      });
 
-    console.log(await res.json());
+      const data = await res.json();
+
+      if (res.ok != true) {
+        throw new Error(data.message);
+      }
+
+      toast.success("Post created!");
+
+      router.push(`/admin/${slug}`);
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message);
+    }
   };
   return (
     <div>
@@ -47,13 +62,13 @@ const AdminCreatePage = () => {
           <button
             type="submit"
             disabled={!isValid}
-            className="px-4 py-2 text-white bg-[#3b49df] rounded border border-[#3b49df] disabled:brightness-50"
+            className="px-4 py-2 text-white bg-[#3b49df] rounded border border-[#3b49df] disabled:brightness-50 disabled:cursor-not-allowed"
           >
             Create New Post
           </button>
         </form>
 
-        <p>
+        <p className="mt-4">
           <strong>Slug:</strong> {slug}
         </p>
       </AuthCheck>
