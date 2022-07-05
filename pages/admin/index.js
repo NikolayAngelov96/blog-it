@@ -14,6 +14,23 @@ const AdminCreatePage = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    const postData = {
+      title,
+      slug,
+      published: false,
+      content: "# hello world",
+    };
+
+    const res = await fetch("http://localhost:3000/api/post/create", {
+      headers: {
+        "X-Authorization": user.token,
+      },
+      method: "POST",
+      body: JSON.stringify(postData),
+    });
+
+    console.log(await res.json());
   };
   return (
     <div>
