@@ -1,10 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { useAuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
-  const { user } = useAuthContext();
+  const { user, removeUserData } = useAuthContext();
+  const router = useRouter();
+
+  const logoutHandler = () => {
+    removeUserData();
+
+    router.push("/");
+  };
 
   return (
     <nav className="bg-white py-2">
@@ -33,7 +41,10 @@ const Navbar = () => {
         {user && (
           <div className="flex gap-2 items-center">
             <li>
-              <button className="px-4 py-2 rounded text-[#7f8893] hover:underline hover:bg-[#e5e5e5] hover:text-[#3b49df]">
+              <button
+                className="px-4 py-2 rounded text-[#7f8893] hover:underline hover:bg-[#e5e5e5] hover:text-[#3b49df]"
+                onClick={logoutHandler}
+              >
                 Sign out
               </button>
             </li>
