@@ -49,8 +49,8 @@ const PostPage = ({ post, user }) => {
       </section>
 
       <aside className="bg-white rounded p-4 w-1/4">
-        <p className="mb-4">
-          <strong>number 💗</strong>
+        <p className="mb-4 text-center">
+          <strong>number 🤍</strong>
         </p>
 
         <AuthCheck
@@ -65,9 +65,13 @@ const PostPage = ({ post, user }) => {
           <HeartButton />
         </AuthCheck>
 
+        {/* add delete btn for owner  */}
+
         {currentUser?._id == post.owner && (
           <Link href={`/admin/${post.slug}`}>
-            <a className="px-4 py-2 bg-red-500">Edit Post</a>
+            <button className="py-2 mt-4 bg-[#3b49df] w-full rounded text-white">
+              Edit Post
+            </button>
           </Link>
         )}
       </aside>
