@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+
 import dbConnect from "../../lib/dbConnect";
 import User from "../../models/User";
 import Post from "../../models/Post";
@@ -75,13 +78,46 @@ const PostPage = ({ post, user }) => {
               </button>
             </Link>
 
-            <button className="py-2 mt-4 bg-[#df3b3b] w-full rounded text-white">
-              Delete
-            </button>
+            <DeleteButton postId={post._id} />
           </>
         )}
       </aside>
     </div>
+  );
+};
+
+const DeleteButton = ({ postId }) => {
+  const { user } = useAuthContext();
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    const isSure = confirm("Are you sure");
+
+    if (isSure) {
+      try {
+        await fetch("http://localhost:3000/api/post/delete", {
+          method: "POST",
+          headers: {
+            "X-Authorization": user.token,
+          },
+          body: JSON.stringify({ postId }),
+        });
+
+        router.push("/admin");
+
+        toast.success("Post annihilated", { icon: "🗑️" });
+      } catch (err) {
+        toast.error(err.message);
+      }
+    }
+  };
+  return (
+    <button
+      className="py-2 mt-4 bg-[#df3b3b] w-full rounded text-white"
+      onClick={handleDelete}
+    >
+      Delete
+    </button>
   );
 };
 
