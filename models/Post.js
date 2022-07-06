@@ -18,10 +18,12 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    heartCount: {
-      type: Number,
-      default: 0,
-    },
+    hearts: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     comments: [
       {
         type: mongoose.Types.ObjectId,
