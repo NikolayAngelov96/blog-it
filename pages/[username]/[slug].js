@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 import dbConnect from "../../lib/dbConnect";
@@ -25,17 +26,15 @@ export async function getServerSideProps({ params }) {
 
   const user = JSON.parse(JSON.stringify(userDoc));
 
-  let post = await Post.findOne({ slug }).lean();
+  let postDoc = await Post.findOne({ slug }).lean();
 
-  if (!post) {
+  if (!postDoc) {
     return {
       notFound: true,
     };
   }
-  post._id = post._id.toString();
-  post.owner = post.owner.toString();
-  post.createdAt = post.createdAt.getTime();
-  post.updatedAt = post.updatedAt.getTime();
+
+  const post = JSON.parse(JSON.stringify(postDoc));
 
   return {
     props: { post, user },
@@ -45,6 +44,11 @@ export async function getServerSideProps({ params }) {
 const PostPage = ({ post, user }) => {
   const { user: currentUser } = useAuthContext();
 
+  const [heartCount, setHeartCount] = useState(post.hearts.length);
+
+  const incrementHeartCount = () => setHeartCount(heartCount + 1);
+
+  const decrementHeartCount = () => setHeartCount(heartCount - 1);
   return (
     <div className="flex gap-4 justify-center">
       <section className="w-3/4 bg-white rounded p-8 border border-[#b5bdc4]">
@@ -53,7 +57,7 @@ const PostPage = ({ post, user }) => {
 
       <aside className="bg-white rounded p-4 w-1/4">
         <p className="mb-4 text-center">
-          <strong>{post.hearts.length} 🤍</strong>
+          <strong>{heartCount} 🤍</strong>
         </p>
 
         <AuthCheck
@@ -65,7 +69,11 @@ const PostPage = ({ post, user }) => {
             </Link>
           }
         >
-          <HeartButton />
+          <HeartButton
+            post={post}
+            incrementHeartCount={incrementHeartCount}
+            decrementHeartCount={decrementHeartCount}
+          />
         </AuthCheck>
 
         {/* add delete btn for owner  */}
