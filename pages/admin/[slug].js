@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
 import toast from "react-hot-toast";
 import AuthCheck from "../../components/AuthCheck";
@@ -70,6 +71,7 @@ const PostForm = ({ defaultValues, preview }) => {
   });
 
   const { user } = useAuthContext();
+  const router = useRouter();
 
   const updatePost = async ({ content, published }) => {
     try {
@@ -86,6 +88,8 @@ const PostForm = ({ defaultValues, preview }) => {
       reset({ content, published });
 
       toast.success("Post updated successfully");
+
+      router.push(`/${user.username}/${defaultValues.slug}`);
     } catch (err) {
       console.error(err);
     }
