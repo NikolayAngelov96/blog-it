@@ -24,12 +24,6 @@ const postSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
-    comments: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Comment",
-      },
-    ],
     owner: {
       type: mongoose.Types.ObjectId,
       ref: "User",
