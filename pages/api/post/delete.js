@@ -13,7 +13,6 @@ export default async function handler(req, res) {
       const payload = jwt.verify(token, SECRET);
 
       const { postId } = JSON.parse(req.body);
-      console.log(postId);
 
       await dbConnect();
 
