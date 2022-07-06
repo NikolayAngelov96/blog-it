@@ -1,7 +1,11 @@
+import Link from "next/link";
 import dbConnect from "../../lib/dbConnect";
 import User from "../../models/User";
 import Post from "../../models/Post";
 import PostContent from "../../components/PostContent";
+import AuthCheck from "../../components/AuthCheck";
+import HeartButton from "../../components/HeartButton";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export async function getServerSideProps({ params }) {
   const { username, slug } = params;
@@ -36,14 +40,36 @@ export async function getServerSideProps({ params }) {
 }
 
 const PostPage = ({ post, user }) => {
+  const { user: currentUser } = useAuthContext();
+
   return (
     <div className="flex gap-4 justify-center">
       <section className="w-3/4 bg-white rounded p-8 border border-[#b5bdc4]">
         <PostContent post={post} user={user} />
       </section>
 
-      <aside className="bg-white rounded p-4 w-1/5">
-        <p>{post.heartCount} 💗</p>
+      <aside className="bg-white rounded p-4 w-1/4">
+        <p className="mb-4">
+          <strong>number 💗</strong>
+        </p>
+
+        <AuthCheck
+          fallback={
+            <Link href={`/login`}>
+              <button className="py-3 bg-[#3b49df] text-white rounded w-full">
+                💗 Sign up
+              </button>
+            </Link>
+          }
+        >
+          <HeartButton />
+        </AuthCheck>
+
+        {currentUser?._id == post.owner && (
+          <Link href={`/admin/${post.slug}`}>
+            <a className="px-4 py-2 bg-red-500">Edit Post</a>
+          </Link>
+        )}
       </aside>
     </div>
   );
