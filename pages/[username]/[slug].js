@@ -68,11 +68,17 @@ const PostPage = ({ post, user }) => {
         {/* add delete btn for owner  */}
 
         {currentUser?._id == post.owner && (
-          <Link href={`/admin/${post.slug}`}>
-            <button className="py-2 mt-4 bg-[#3b49df] w-full rounded text-white">
-              Edit Post
+          <>
+            <Link href={`/admin/${post.slug}`}>
+              <button className="py-2 mt-4 bg-[#3b49df] w-full rounded text-white">
+                Edit Post
+              </button>
+            </Link>
+
+            <button className="py-2 mt-4 bg-[#df3b3b] w-full rounded text-white">
+              Delete
             </button>
-          </Link>
+          </>
         )}
       </aside>
     </div>
