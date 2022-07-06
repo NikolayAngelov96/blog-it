@@ -34,6 +34,15 @@ module.exports = {
           },
         ],
       },
+      {
+        source: "/post/delete",
+        headers: [
+          {
+            key: "X-Authorization",
+            value: "",
+          },
+        ],
+      },
     ];
   },
 };
