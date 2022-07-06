@@ -50,7 +50,7 @@ const PostPage = ({ post, user }) => {
 
       <aside className="bg-white rounded p-4 w-1/4">
         <p className="mb-4 text-center">
-          <strong>number 🤍</strong>
+          <strong>{post.hearts.length} 🤍</strong>
         </p>
 
         <AuthCheck

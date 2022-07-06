@@ -24,7 +24,7 @@ const PostItem = ({ post, admin }) => {
       </Link>
       <div className="flex justify-between mb-6">
         <span>Comments: {post.comments.length}</span>
-        <span> 💗 number Hearts </span>
+        <span> 💗 {post.hearts.length} Hearts </span>
       </div>
 
       {admin && (
