@@ -1,4 +1,24 @@
+# Blog It
+
+Blog it is full-stack **Social Bloging Platform** inspired by [Dev.to](https://dev.to/).
+
+Everyone can access and read all **published** blog posts.
+
+But only registered **Users** can:
+
+- **`Create`** posts
+- **`Like`** 💞 posts
+- **`Edit`** and **`Delete`** their own posts
+
+## Implementation Details
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+I used for:
+
+- Database: [MongoDB](https://www.mongodb.com/) with [Mongoose](https://mongoosejs.com/) ODM.
+
+- Styling: [TailwindCSS](https://tailwindcss.com/).
 
 ## Getting Started
 
