@@ -10,6 +10,8 @@ But only registered **Users** can:
 - **`Like`** 💞 posts
 - **`Edit`** and **`Delete`** their own posts
 
+You can write the post using [Markdown](https://www.markdownguide.org/) markup.
+
 ## Implementation Details
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
@@ -73,6 +75,53 @@ By clicking on the username you'll be redirected to that user public profile pag
 And if you click on the post title you'll be redirected to that post page.
 
 ### Post
+
+You can check the full post content on **`/[username]/[post-name]`**. Which contains **title**, **author** of the post, **date** of the post creation and the rendered **Markdown**.
+
+If you're not sign in you'll see just the **Heart** count and sign up button.
+
+```
+Post Image no user here
+
+```
+
+Logged in users depending on that if the already liked the post will see **`Heart`** or **`Unheart`** button.
+
+```
+Post Image Logged in user NOT Owner
+
+```
+
+And if the user is **owner** of the post. He'll see **`Edit`** and **`Delete`** buttons
+
+```
+Post image owner of the post
+```
+
+### Public User Profile
+
+The public profile is on **`/[username]`** and here you can see info about the user **email**, **username** and all posts written by that user.
+
+```
+Public profile image here
+```
+
+### Admin User Profile
+
+On route **`/admin`** or if you click **`Write Post`** if there is currently logged in user you'll see all your post where you can manage them(**`edit`** button that sends you to **post edit page**) and a form where you can **create** new post by providing a title, after that you'll be redirected to **`/admin/[post-title]`** where you can edit your post content.
+
+```
+admin index image here
+```
+
+### Post edit
+
+Here is the form for the **post content** where you can write **Markdown** and by clicking **Preview** you can see how the post will look like after it's rendered.
+
+```
+Post edit here
+
+```
 
 ## Getting Started
 
