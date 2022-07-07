@@ -96,39 +96,43 @@ const PostForm = ({ defaultValues, preview }) => {
   };
 
   return (
-    <form className="" onSubmit={handleSubmit(updatePost)}>
+    <>
       {preview && (
-        <div>
-          <ReactMarkdown>{watch("content")}</ReactMarkdown>
+        <div className="h-[60vh] border-none w-full text-lg rounded px-4 py-6 mt-6 bg-white rounded">
+          <ReactMarkdown className="prose">{watch("content")}</ReactMarkdown>
         </div>
       )}
 
-      <div>
-        <textarea
-          className="h-[60vh] border-none w-full text-lg rounded px-4 py-2 mt-6"
-          {...register("content")}
-        ></textarea>
+      {!preview && (
+        <form onSubmit={handleSubmit(updatePost)}>
+          <div>
+            <textarea
+              className="h-[60vh] border-none w-full text-lg rounded px-4 py-2 mt-6"
+              {...register("content")}
+            ></textarea>
 
-        <fieldset className="mt-6">
-          <input
-            className="cursor-pointer"
-            {...register("published")}
-            id="published"
-            type="checkbox"
-          />
-          <label htmlFor="published" className="cursor-pointer text-lg">
-            Published
-          </label>
-        </fieldset>
+            <fieldset className="mt-6">
+              <input
+                className="cursor-pointer"
+                {...register("published")}
+                id="published"
+                type="checkbox"
+              />
+              <label htmlFor="published" className="cursor-pointer text-lg">
+                Published
+              </label>
+            </fieldset>
 
-        <button
-          type="submit"
-          className="w-full bg-[#3b49df] rounded text-white py-3 mt-6"
-        >
-          Save Changes
-        </button>
-      </div>
-    </form>
+            <button
+              type="submit"
+              className="w-full bg-[#3b49df] rounded text-white py-3 mt-6"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      )}
+    </>
   );
 };
 
