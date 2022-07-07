@@ -34,9 +34,45 @@ Also I used Next js [API routes](https://nextjs.org/docs/api-routes/introduction
 
 Login page contains a form for user authentication.
 
+```
+Image here login page
+
+```
+
 After providing **`email`** and **`password`** request is send and the server checks in database for user with the provided email and compares the password with the encrypted password in the database.
 
 If error occurs(either there is no such email or password is wrong) it gives you a toast with the message.
+
+```
+Image here login-toast
+
+```
+
+### Register
+
+You can create an account by entering **`email`**, **`username`** and **`password`**. Then the server will take this data **hash** the password and save it to the database.
+
+If there are empty fields the UI will display message with the required fields.
+
+```
+Image here register-form-validation
+
+```
+
+### Home
+
+For this page I used **SSR** to get the data and display the most recent posts.
+Which is **Preview card** that contains **title**, **hearts** and **username**(of the user, who created the post).
+
+```
+Image here home
+
+```
+
+By clicking on the username you'll be redirected to that user public profile page.
+And if you click on the post title you'll be redirected to that post page.
+
+### Post
 
 ## Getting Started
 
@@ -49,12 +85,6 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 ## Deploy on Vercel
 
