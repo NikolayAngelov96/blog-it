@@ -17,26 +17,13 @@ const Navbar = () => {
   return (
     <nav className="bg-white py-2">
       <ul className="px-[10vw] flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <li>
-            <Link href="/">
-              <button className="px-4 py-2 bg-black text-white rounded text-2xl font-bold hover:brightness-90">
-                BLOG
-              </button>
-            </Link>
-          </li>
-
-          <li className="hidden md:block">
-            <form method="get" className="relative">
-              <input
-                type="text"
-                placeholder="Search..."
-                name="search"
-                className="border border-[#dfdfdf] rounded px-4 py-2 lg:pr-20 focus:outline-[#3b49df]"
-              />
-            </form>
-          </li>
-        </div>
+        <li>
+          <Link href="/">
+            <button className="px-4 py-2 bg-black text-white rounded text-2xl font-bold hover:brightness-90">
+              BLOG
+            </button>
+          </Link>
+        </li>
 
         {user && (
           <div className="flex gap-2 items-center">
@@ -57,7 +44,7 @@ const Navbar = () => {
               </Link>
             </li>
 
-            <li>
+            <li className="hidden md:block">
               <Image
                 src={`/img/hacker.jpg`}
                 width={60}
@@ -70,9 +57,9 @@ const Navbar = () => {
 
         {!user && (
           <div className="flex gap-2 items-center">
-            <li className="hidden md:block">
+            <li className="">
               <Link href={`/login`}>
-                <a className="text-[#626262] text-lg hover:bg-[#EBECFC] px-4 py-2 rounded hover:text-[#3b49df] hover:underline">
+                <a className="text-[#626262] text-lg hover:bg-[#EBECFC] px-2 md:px-4 py-2 rounded hover:text-[#3b49df] hover:underline">
                   Log in
                 </a>
               </Link>
@@ -80,7 +67,7 @@ const Navbar = () => {
 
             <li>
               <Link href={`/register`}>
-                <a className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]">
+                <a className="text-[#3b49df] font-semibold border border-[#3b49df] rounded px-1 md:px-4 py-3 hover:underline hover:text-white hover:bg-[#3b49df]">
                   Create account
                 </a>
               </Link>

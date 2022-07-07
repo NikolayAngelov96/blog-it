@@ -29,7 +29,7 @@ export default function Home(props) {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="w-3/4 mx-auto">
+    <div className="md:w-3/4 mx-auto">
       <PostFeed posts={props.posts} />
 
       <Loader show={loading} />

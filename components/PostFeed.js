@@ -10,11 +10,10 @@ const PostFeed = ({ posts, admin }) => {
 
 const PostItem = ({ post, admin }) => {
   return (
-    <div className="border border-[#b5bdc4] p-8 rounded bg-white mb-8">
+    <div className="border border-[#b5bdc4] p-4 md:p-8 rounded bg-white mb-8">
       <Link href={`/${post.owner.username}`}>
         <a className="font-bold p-1  hover:bg-[#F6F6F6] rounded">
-          {" "}
-          {post.owner.username}{" "}
+          By @{post.owner.username}{" "}
         </a>
       </Link>
       <Link href={`/${post.owner.username}/${post.slug}`}>

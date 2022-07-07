@@ -42,18 +42,18 @@ const PostManager = ({ post }) => {
   const [preview, setPreview] = useState(false);
 
   return (
-    <div className="flex gap-4">
-      <section className="w-3/4">
+    <div className="flex flex-col md:flex-row gap-14 md:gap-4">
+      <section className="w-full md:w-3/4">
         <h1 className="text-3xl mb-4">{post.title}</h1>
         <p>ID: {post.slug}</p>
 
         <PostForm defaultValues={post} preview={preview} />
       </section>
 
-      <aside className="w-1/4">
+      <aside className="w-full md:w-1/4">
         <h3 className="font-bold text-2xl mb-8">Tools</h3>
         <button
-          className="px-4 py-2 bg-[#3b49df] text-white rounded w-1/2"
+          className="px-4 py-2 bg-[#3b49df] text-white rounded w-full md:w-1/2"
           onClick={() => setPreview(!preview)}
         >
           {preview ? "Edit" : "Preview"}

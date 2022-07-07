@@ -51,12 +51,12 @@ const PostPage = ({ post, user }) => {
 
   const decrementHeartCount = () => setHeartCount(heartCount - 1);
   return (
-    <div className="flex gap-4 justify-center">
-      <section className="w-3/4 bg-white rounded p-8 border border-[#b5bdc4]">
+    <div className="flex flex-col md:flex-row gap-4 justify-center items-center md:items-start">
+      <section className="w-full md:w-3/4 bg-white rounded p-8 border border-[#b5bdc4]">
         <PostContent post={post} user={user} />
       </section>
 
-      <aside className="bg-white rounded p-4 w-1/4">
+      <aside className="bg-white rounded p-4 w-full md:w-1/4">
         <p className="mb-4 text-center">
           <strong>{heartCount} 🤍</strong>
         </p>
