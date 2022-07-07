@@ -16,6 +16,12 @@ export default async function handler(req, res) {
 
       await dbConnect();
 
+      const isSlugTaken = await Post.findOne({ slug: data.slug });
+
+      if (isSlugTaken) {
+        throw new Error("Post with that title already exist");
+      }
+
       const user = await User.findById(payload._id);
 
       const post = await Post.create({ ...data, owner: user._id });
