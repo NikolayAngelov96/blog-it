@@ -1,16 +1,15 @@
 import toast from "react-hot-toast";
+import { useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
-
-// Heart and UnHeart not reacting to like change
 
 const HeartButton = ({ post, incrementHeartCount, decrementHeartCount }) => {
   const { user } = useAuthContext();
 
-  let isLiked = post.hearts.some((x) => x == user._id);
+  let initialBtnState = post.hearts.some((x) => x == user._id);
+
+  const [isLiked, setIsLiked] = useState(initialBtnState);
 
   const addHeart = async () => {
-    //TODO: add heart with userId to collection
-
     try {
       const res = await fetch("http://localhost:3000/api/post/like", {
         method: "POST",
@@ -26,15 +25,13 @@ const HeartButton = ({ post, incrementHeartCount, decrementHeartCount }) => {
       }
 
       incrementHeartCount();
-      isLiked = true;
+      setIsLiked(true);
     } catch (err) {
       toast.error(err.message);
     }
   };
 
-  console.log(decrementHeartCount);
   const removeHeart = async () => {
-    //TODO: remove heart from collection
     try {
       const res = await fetch("http://localhost:3000/api/post/unlike", {
         method: "POST",
@@ -50,7 +47,7 @@ const HeartButton = ({ post, incrementHeartCount, decrementHeartCount }) => {
       }
 
       decrementHeartCount();
-      isLiked = false;
+      setIsLiked(false);
     } catch (err) {
       console.error(err);
       toast.error(err.message);
