@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import AuthCheck from "../../components/AuthCheck";
 import dbConnect from "../../lib/dbConnect";
 import Post from "../../models/Post";
-import { AuthContext, useAuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export async function getServerSideProps({ params }) {
   const { slug } = params;
@@ -30,7 +30,6 @@ export async function getServerSideProps({ params }) {
 }
 
 const AdminEditPage = (props) => {
-  // add post request and Link to Edit post in post feed pass boolean admin and dipslay edit btn
   return (
     <AuthCheck>
       <PostManager post={props.post} />
@@ -41,7 +40,6 @@ const AdminEditPage = (props) => {
 const PostManager = ({ post }) => {
   const [preview, setPreview] = useState(false);
 
-  console.log(post);
   return (
     <div className="flex gap-4">
       <section className="w-3/4">
