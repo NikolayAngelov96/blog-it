@@ -20,6 +20,24 @@ I used for:
 
 - Styling: [TailwindCSS](https://tailwindcss.com/).
 
+- Hashing passwords: [bcrypt](https://www.npmjs.com/package/bcrypt).
+
+- Tokens: [JWT](https://www.npmjs.com/package/jsonwebtoken).
+
+Also I used Next js [API routes](https://nextjs.org/docs/api-routes/introduction) for handling request for:
+
+- **login**
+- **register**
+- CRUD operations for **post**
+
+### Login
+
+Login page contains a form for user authentication.
+
+After providing **`email`** and **`password`** request is send and the server checks in database for user with the provided email and compares the password with the encrypted password in the database.
+
+If error occurs(either there is no such email or password is wrong) it gives you a toast with the message.
+
 ## Getting Started
 
 First, run the development server:
@@ -34,18 +52,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
