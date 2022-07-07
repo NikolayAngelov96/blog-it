@@ -2,6 +2,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { useAuthContext } from "../contexts/AuthContext";
+import * as request from "../lib/request";
 
 const Login = () => {
   const { setUserData } = useAuthContext();
@@ -15,18 +16,7 @@ const Login = () => {
     const password = formData.get("password");
 
     try {
-      const res = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await res.json();
-      if (res.ok != true) {
-        throw new Error(data.message);
-      }
+      const data = await request.post("/login", { email, password });
 
       setUserData(data);
 

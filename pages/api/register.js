@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   if (req.method == "POST") {
     try {
       validateUserData(req.body);
-      const { email, username, password } = req.body;
+      let { email, username, password } = req.body;
       username = username.toLowerCase();
       await dbConnect();
       const user = await User.findOne({ $or: [{ email }, { username }] });

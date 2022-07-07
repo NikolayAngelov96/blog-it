@@ -7,6 +7,7 @@ import AuthCheck from "../../components/AuthCheck";
 import dbConnect from "../../lib/dbConnect";
 import Post from "../../models/Post";
 import { useAuthContext } from "../../contexts/AuthContext";
+import * as request from "../../lib/request";
 
 export async function getServerSideProps({ params }) {
   const { slug } = params;
@@ -73,15 +74,9 @@ const PostForm = ({ defaultValues, preview }) => {
 
   const updatePost = async ({ content, published }) => {
     try {
-      const res = await fetch("http://localhost:3000/api/post/update", {
-        method: "POST",
-        headers: {
-          "X-Authorization": user.token,
-        },
-        body: JSON.stringify({ content, published, postId: defaultValues._id }),
-      });
+      const body = { content, published, postId: defaultValues._id };
 
-      const data = await res.json();
+      await request.put("/post/update", body, user);
 
       reset({ content, published });
 
@@ -90,13 +85,14 @@ const PostForm = ({ defaultValues, preview }) => {
       router.push(`/${user.username}/${defaultValues.slug}`);
     } catch (err) {
       console.error(err);
+      toast.error(err.message);
     }
   };
 
   return (
     <>
       {preview && (
-        <div className="h-[60vh] border-none w-full text-lg rounded px-4 py-6 mt-6 bg-white rounded">
+        <div className="h-[60vh] border-none w-full text-lg px-4 py-6 mt-6 bg-white rounded">
           <ReactMarkdown className="prose">{watch("content")}</ReactMarkdown>
         </div>
       )}

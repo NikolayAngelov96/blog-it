@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../contexts/AuthContext";
+import * as request from "../lib/request";
 
 const errorStyles = "border-red-500";
 
@@ -19,19 +20,7 @@ const Register = () => {
 
   const onSubmitHandler = async (data) => {
     try {
-      const res = await fetch("http://localhost:3000/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const resData = await res.json();
-
-      if (res.ok != true) {
-        throw new Error(resData.message);
-      }
+      const resData = await request.post("/register", data);
 
       setUserData(resData);
 

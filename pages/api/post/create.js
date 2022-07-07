@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     try {
       const payload = jwt.verify(token, SECRET);
 
-      const data = JSON.parse(req.body);
+      const data = req.body;
 
       await dbConnect();
 

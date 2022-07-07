@@ -10,6 +10,7 @@ import PostContent from "../../components/PostContent";
 import AuthCheck from "../../components/AuthCheck";
 import HeartButton from "../../components/HeartButton";
 import { useAuthContext } from "../../contexts/AuthContext";
+import * as request from "../../lib/request";
 
 export async function getServerSideProps({ params }) {
   const { username, slug } = params;
@@ -76,8 +77,6 @@ const PostPage = ({ post, user }) => {
           />
         </AuthCheck>
 
-        {/* add delete btn for owner  */}
-
         {currentUser?._id == post.owner && (
           <>
             <Link href={`/admin/${post.slug}`}>
@@ -103,13 +102,7 @@ const DeleteButton = ({ postId }) => {
 
     if (isSure) {
       try {
-        await fetch("http://localhost:3000/api/post/delete", {
-          method: "POST",
-          headers: {
-            "X-Authorization": user.token,
-          },
-          body: JSON.stringify({ postId }),
-        });
+        await request.post("/post/delete", { postId }, user);
 
         router.push("/admin");
 

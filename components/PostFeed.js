@@ -23,7 +23,6 @@ const PostItem = ({ post, admin }) => {
         </h2>
       </Link>
       <div className="flex justify-between mb-6">
-        <span>Comments: {post.comments.length}</span>
         <span> 💗 {post.hearts.length} Hearts </span>
       </div>
 

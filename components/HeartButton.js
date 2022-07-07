@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
+import * as request from "../lib/request";
 
 const HeartButton = ({ post, incrementHeartCount, decrementHeartCount }) => {
   const { user } = useAuthContext();
@@ -11,40 +12,23 @@ const HeartButton = ({ post, incrementHeartCount, decrementHeartCount }) => {
 
   const addHeart = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/post/like", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ postId: post._id, userId: user._id }),
-      });
+      const body = { postId: post._id, userId: user._id };
 
-      if (res.ok != true) {
-        let error = await res.json();
-        throw new Error(error.message);
-      }
+      await request.post("/post/like", body, user);
 
       incrementHeartCount();
       setIsLiked(true);
     } catch (err) {
+      console.error(err);
       toast.error(err.message);
     }
   };
 
   const removeHeart = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/post/unlike", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ postId: post._id, userId: user._id }),
-      });
+      const body = { postId: post._id, userId: user._id };
 
-      if (res.ok != true) {
-        let error = await res.json();
-        throw new Error(error.message);
-      }
+      await request.post("/post/unlike", body, user);
 
       decrementHeartCount();
       setIsLiked(false);

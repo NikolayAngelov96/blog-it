@@ -5,14 +5,13 @@ import Post from "../../../models/Post";
 const SECRET = process.env.JWT_SECRET;
 
 export default async function handler(req, res) {
-  if (req.method == "POST") {
-    const token = req.headers["x-authorization"];
+  if (req.method == "PUT") {
     try {
+      const token = req.headers["x-authorization"];
+
       const payload = jwt.verify(token, SECRET);
 
-      const data = JSON.parse(req.body);
-
-      const { postId, content, published } = data;
+      const { postId, content, published } = req.body;
 
       await dbConnect();
 

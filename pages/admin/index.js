@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import AuthCheck from "../../components/AuthCheck";
 import PostFeed from "../../components/PostFeed";
 import { useAuthContext } from "../../contexts/AuthContext";
+import * as request from "../../lib/request";
 
 const AdminCreatePage = () => {
   return (
@@ -37,19 +38,7 @@ const CreateNewPost = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/post/create", {
-        headers: {
-          "X-Authorization": user.token,
-        },
-        method: "POST",
-        body: JSON.stringify(postData),
-      });
-
-      const data = await res.json();
-
-      if (res.ok != true) {
-        throw new Error(data.message);
-      }
+      await request.post("/post/create", postData, user);
 
       toast.success("Post created!");
 
@@ -69,7 +58,6 @@ const CreateNewPost = () => {
           className="w-full p-4 mb-4 rounded focus:outline-[#3b49df]"
         />
 
-        {/* FIX Button styles */}
         <button
           type="submit"
           disabled={!isValid}
@@ -92,20 +80,18 @@ const PostList = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const res = await fetch("http://localhost:3000/api/post", {
-        method: "GET",
-        headers: {
-          "X-Authorization": user.token,
-        },
-      });
+      try {
+        const data = await request.get("/post", user);
 
-      const data = await res.json();
-
-      setPosts(data.posts);
+        setPosts(data.posts);
+      } catch (err) {
+        console.error(err);
+        toast.error(err.message);
+      }
     };
 
     getPosts();
-  }, [user.token]);
+  }, [user]);
   return (
     <>
       <h1 className="text-center text-3xl uppercase font-bold mb-4">
