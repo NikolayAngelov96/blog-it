@@ -36,6 +36,8 @@ Also I used Next js [API routes](https://nextjs.org/docs/api-routes/introduction
 
 Posts can be written using [Markdown](https://www.markdownguide.org/) markup.
 
+## Pages
+
 ### Login
 
 Login page contains a form for user authentication.
