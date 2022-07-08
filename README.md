@@ -42,19 +42,14 @@ Posts can be written using [Markdown](https://www.markdownguide.org/) markup.
 
 Login page contains a form for user authentication.
 
-```
-Image here login page
+![login](https://user-images.githubusercontent.com/103751145/177942111-ae062edd-496b-4da7-b336-488b7f6d385e.png)
 
-```
 
 After providing **`email`** and **`password`** request is send and the server checks in database for user with the provided email and compares the password with the encrypted password in the database.
 
 If error occurs(either there is no such email or password is wrong) it gives you a toast with the message.
 
-```
-Image here login-toast
-
-```
+![login-error](https://user-images.githubusercontent.com/103751145/177942234-ce82b622-5810-4244-8efa-c0f5f781912c.png)
 
 ### Register
 
@@ -62,20 +57,14 @@ You can create an account by entering **`email`**, **`username`** and **`passwor
 
 If there are empty fields the UI will display message with the required fields.
 
-```
-Image here register-form-validation
-
-```
+![register-form-validation](https://user-images.githubusercontent.com/103751145/177942291-c6f4f2f1-67b0-47b0-9d3e-5be9ed0c303d.png)
 
 ### Home
 
 For this page I used **SSR** to get the data and display the most recent posts.
 Which is **Preview card** that contains **title**, **hearts** and **username**(of the user, who created the post).
 
-```
-Image here home
-
-```
+![home](https://user-images.githubusercontent.com/103751145/177942348-30b74874-206d-4fcc-97cc-1cc62713ea0e.png)
 
 By clicking on the username you'll be redirected to that user public profile page.
 And if you click on the post title you'll be redirected to that post page.
@@ -86,52 +75,40 @@ You can check the full post content on **`/[username]/[post-name]`**. Which cont
 
 If you're not sign in you'll see just the **Heart** count and sign up button.
 
-```
-Post Image no user here
-
-```
+![post-no-user](https://user-images.githubusercontent.com/103751145/177942427-c7c7c44d-d92d-4f20-9945-ca707c231dcc.png)
 
 Logged in users depending on that if the already liked the post will see **`Heart`** or **`Unheart`** button.
 
-```
-Post Image Logged in user NOT Owner
+![post-user-notOwner-heart](https://user-images.githubusercontent.com/103751145/177942475-fe01c435-f37a-4ff6-86f0-2faba5f64f81.png)
 
-```
+
+![post-user-notOwner-unheart](https://user-images.githubusercontent.com/103751145/177942518-7f8af242-3148-4132-aa39-2a87fd36e46a.png)
 
 And if the user is **owner** of the post. He'll see **`Edit`** and **`Delete`** buttons
 
-```
-Post image owner of the post
-```
+![post-owner](https://user-images.githubusercontent.com/103751145/177942554-56ac53b4-8e7e-43f1-a94f-866e62e9178d.png)
 
 ### Public User Profile
 
 The public profile is on **`/[username]`** and here you can see info about the user **email**, **username** and all posts written by that user.
 
-```
-Public profile image here
-```
+![profile-public](https://user-images.githubusercontent.com/103751145/177942620-2ba46a35-d0d7-4473-8044-1d546b323539.png)
 
 ### Admin User Profile
 
 On route **`/admin`** or if you click **`Write Post`** if there is currently logged in user you'll see all your post where you can manage them(**`edit`** button that sends you to **post edit page**) and a form where you can **create** new post by providing a title, after that you'll be redirected to **`/admin/[post-title]`** where you can edit your post content.
 
-```
-admin index image here
-```
+![admin-index](https://user-images.githubusercontent.com/103751145/177942661-bcb1dc01-cb17-4d95-ae32-cfc5da578eed.png)
 
 ### Post edit
 
 Here is the form for the **post content** where you can write **Markdown** and by clicking **Preview** you can see how the post will look like after it's rendered.
 
-```
-Post edit here
-
-```
+![post-edit](https://user-images.githubusercontent.com/103751145/177942704-33e71a88-530d-46ab-a6b6-456c519e29cb.png)
 
 ## Getting Started
 
-First, run the development server:
+First install all dependencies, then run the development server:
 
 ```bash
 npm run dev
@@ -141,8 +118,4 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
