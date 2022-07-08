@@ -10,8 +10,6 @@ But only registered **Users** can:
 - **`Like`** 💞 posts
 - **`Edit`** and **`Delete`** their own posts
 
-You can write the post using [Markdown](https://www.markdownguide.org/) markup.
-
 ## Implementation Details
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
@@ -26,11 +24,17 @@ I used for:
 
 - Tokens: [JWT](https://www.npmjs.com/package/jsonwebtoken).
 
+React Context API is used for managing the global auth state.
+
+Most pages use **Server Side Rendering** to fetch data to the server.
+
 Also I used Next js [API routes](https://nextjs.org/docs/api-routes/introduction) for handling request for:
 
 - **login**
 - **register**
-- CRUD operations for **post**
+- **CRUD** operations for **post**
+
+Posts can be written using [Markdown](https://www.markdownguide.org/) markup.
 
 ### Login
 
