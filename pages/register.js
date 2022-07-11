@@ -2,17 +2,37 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuthContext } from "../contexts/AuthContext";
 import * as request from "../lib/request";
 
 const errorStyles = "border-red-500";
+
+const registerSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Please enter a valid email")
+    .required("Email is required"),
+  username: yup
+    .string()
+    .required("Username is required")
+    .min(3, "Username must be at least 3 characters"),
+  password: yup
+    .string()
+    .required("Password required")
+    .min(6, "Password must be at least 6 characters"),
+  rePass: yup.string().required("Please confirm your password"),
+});
 
 const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
 
   const { setUserData } = useAuthContext();
 
@@ -47,7 +67,7 @@ const Register = () => {
           </label>
 
           {errors.email && (
-            <p className="text-red-500 text-sm">Email is required</p>
+            <p className="text-red-500 text-sm">{errors.email?.message}</p>
           )}
           <input
             type="email"
@@ -63,7 +83,7 @@ const Register = () => {
           </label>
 
           {errors.username && (
-            <p className="text-red-500 text-sm">Username is required</p>
+            <p className="text-red-500 text-sm">{errors.username.message}</p>
           )}
           <input
             type="text"
@@ -78,7 +98,7 @@ const Register = () => {
             Password
           </label>
           {errors.password && (
-            <p className="text-red-500 text-sm">Password is required</p>
+            <p className="text-red-500 text-sm">{errors.password?.message}</p>
           )}
 
           <input
@@ -94,7 +114,7 @@ const Register = () => {
             Repeat Password
           </label>
           {errors.rePass && (
-            <p className="text-red-500 text-sm">Repeat password is required</p>
+            <p className="text-red-500 text-sm">{errors.rePass?.message}</p>
           )}
           <input
             type="password"
