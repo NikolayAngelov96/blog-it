@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
 import toast from "react-hot-toast";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import AuthCheck from "../../components/AuthCheck";
 import dbConnect from "../../lib/dbConnect";
 import Post from "../../models/Post";
@@ -29,6 +31,14 @@ export async function getServerSideProps({ params }) {
     },
   };
 }
+
+const postSchema = yup.object().shape({
+  content: yup
+    .string()
+    .required("Content is required")
+    .min(6, "Content must be at least 6 characters")
+    .max(20000, "Content must be below 20 000 characters"),
+});
 
 const AdminEditPage = (props) => {
   return (
@@ -64,9 +74,16 @@ const PostManager = ({ post }) => {
 };
 
 const PostForm = ({ defaultValues, preview }) => {
-  const { register, handleSubmit, reset, watch } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm({
     defaultValues,
     mode: "onChange",
+    resolver: yupResolver(postSchema),
   });
 
   const { user } = useAuthContext();
@@ -100,9 +117,14 @@ const PostForm = ({ defaultValues, preview }) => {
       {!preview && (
         <form onSubmit={handleSubmit(updatePost)}>
           <div>
+            {errors.content && (
+              <p className="text-red-500 text-sm">{errors.content.message}</p>
+            )}
             <textarea
-              className="h-[60vh] border-none w-full text-lg rounded px-4 py-2 mt-6"
-              {...register("content")}
+              className={`h-[60vh] border-none w-full text-lg rounded px-4 py-2 mt-6 ${
+                errors.content && "outline-red-500"
+              }`}
+              {...register("content", { required: true })}
             ></textarea>
 
             <fieldset className="mt-6">
