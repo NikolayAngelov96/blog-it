@@ -44,13 +44,15 @@ const Navbar = () => {
               </Link>
             </li>
 
-            <li className="hidden md:block">
-              <Image
-                src={`/img/hacker.jpg`}
-                width={60}
-                height={60}
-                alt="profile img"
-              />
+            <li className="hidden md:block rounded-full overflow-hidden">
+              <Link href={`/admin`}>
+                <div className="w-[60px] h-[60px] rounded-full overflow-hidden cursor-pointer">
+                  <img
+                    src={user.avatar || `/img/hacker.jpg`}
+                    alt="profile img"
+                  />
+                </div>
+              </Link>
             </li>
           </div>
         )}
