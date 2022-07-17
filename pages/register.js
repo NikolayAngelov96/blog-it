@@ -125,6 +125,15 @@ const Register = () => {
             }`}
           />
 
+          <label htmlFor="avatar" className="w-full font-bold">
+            Avatar URL
+          </label>
+          <input
+            type="text"
+            {...register("avatar")}
+            id="avatar"
+            className="px-4 py-3 rounded-lg border border-[#dfdfdf] w-full focus:outline-[#3b49df] focus:border-transparent"
+          />
           <button
             type="submit"
             className="uppercase font-bold w-full bg-[#3b49df] rounded text-white py-2 px-4 mt-8"
