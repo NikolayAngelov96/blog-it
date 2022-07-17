@@ -60,14 +60,16 @@ const PostManager = ({ post }) => {
         <PostForm defaultValues={post} preview={preview} />
       </section>
 
-      <aside className="w-full md:w-1/4">
-        <h3 className="font-bold text-2xl mb-8">Tools</h3>
-        <button
-          className="px-4 py-2 bg-[#3b49df] text-white rounded w-full md:w-1/2"
-          onClick={() => setPreview(!preview)}
-        >
-          {preview ? "Edit" : "Preview"}
-        </button>
+      <aside className="w-full md:w-1/4 relative">
+        <div className="sticky top-[200px] right-0">
+          <h3 className="font-bold text-2xl mb-8">Tools</h3>
+          <button
+            className="px-4 py-2 bg-[#3b49df] text-white rounded w-full md:w-1/2"
+            onClick={() => setPreview(!preview)}
+          >
+            {preview ? "Edit" : "Preview"}
+          </button>
+        </div>
       </aside>
     </div>
   );
@@ -109,7 +111,7 @@ const PostForm = ({ defaultValues, preview }) => {
   return (
     <>
       {preview && (
-        <div className="h-[60vh] border-none w-full text-lg px-4 py-6 mt-6 bg-white rounded">
+        <div className="border-none w-full text-lg px-4 py-6 mt-6 bg-white rounded">
           <ReactMarkdown className="prose">{watch("content")}</ReactMarkdown>
         </div>
       )}
