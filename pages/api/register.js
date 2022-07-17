@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   if (req.method == "POST") {
     try {
       validateUserData(req.body);
-      let { email, username, password } = req.body;
+      let { email, username, password, avatar } = req.body;
       username = username.toLowerCase();
       await dbConnect();
       const user = await User.findOne({ $or: [{ email }, { username }] });
@@ -25,10 +25,13 @@ export default async function handler(req, res) {
         email,
         username,
         password: hashedPassword,
+        avatar,
       });
       const token = await createToken(createdUser);
 
-      res.status(201).json({ email, username, token, _id: createdUser._id });
+      res
+        .status(201)
+        .json({ email, username, token, _id: createdUser._id, avatar });
     } catch (err) {
       console.log(err);
       res.status(400).json({ message: err.message });
