@@ -44,7 +44,6 @@ Login page contains a form for user authentication.
 
 ![login](https://user-images.githubusercontent.com/103751145/177942111-ae062edd-496b-4da7-b336-488b7f6d385e.png)
 
-
 After providing **`email`** and **`password`** request is send and the server checks in database for user with the provided email and compares the password with the encrypted password in the database.
 
 If error occurs(either there is no such email or password is wrong) it gives you a toast with the message.
@@ -81,7 +80,6 @@ Logged in users depending on that if the already liked the post will see **`Hear
 
 ![post-user-notOwner-heart](https://user-images.githubusercontent.com/103751145/177942475-fe01c435-f37a-4ff6-86f0-2faba5f64f81.png)
 
-
 ![post-user-notOwner-unheart](https://user-images.githubusercontent.com/103751145/177942518-7f8af242-3148-4132-aa39-2a87fd36e46a.png)
 
 And if the user is **owner** of the post. He'll see **`Edit`** and **`Delete`** buttons
@@ -108,7 +106,19 @@ Here is the form for the **post content** where you can write **Markdown** and b
 
 ## Getting Started
 
-First install all dependencies, then run the development server:
+First install all dependencies, then create .env file containing
+
+```
+// A string for JSONWEBTOKEN
+JWT_SECRET=
+// Number of salt round for password hashing
+SALT_ROUNDS=
+// Connection string for MongoDB
+MONGODB_URI=
+
+```
+
+then run the development server:
 
 ```bash
 npm run dev
@@ -117,5 +127,3 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-
