@@ -9,6 +9,7 @@ import Post from "../../models/Post";
 import PostContent from "../../components/PostContent";
 import AuthCheck from "../../components/AuthCheck";
 import HeartButton from "../../components/HeartButton";
+import CommentFeed from "../../components/CommentFeed";
 import { useAuthContext } from "../../contexts/AuthContext";
 import * as request from "../../lib/request";
 
@@ -50,33 +51,13 @@ const PostPage = ({ post, user }) => {
   const incrementHeartCount = () => setHeartCount(heartCount + 1);
 
   const decrementHeartCount = () => setHeartCount(heartCount - 1);
+
   return (
     <>
       <div className="flex flex-col md:flex-row gap-4 justify-center items-center md:items-start relative">
         <section className="w-full md:w-3/4 bg-white rounded p-8 border border-[#b5bdc4]">
           <PostContent post={post} user={user} />
-          <div className="w-full bg-white p-8 border-t border-black">
-            <h3 className="font-bold text-2xl mb-6">Discussion: </h3>
-
-            {/* Comment Item */}
-            <div className="flex align-top gap-2">
-              {/* Link to profile of user */}
-              <div className="w-8 h-8 cursor-pointer">
-                <img src={`/img/hacker.jpg`} />
-              </div>
-              <div className="p-2 border border-[#b5bdc4] rounded w-full">
-                <div className="">
-                  <button className="p-1 font-bold hover:bg-[#f6f6f6] rounded">
-                    {/* Link to user profile */}
-                    pesho12
-                  </button>{" "}
-                  18 Jul
-                </div>
-
-                <div className="p-1">Very interesting post. Love it </div>
-              </div>
-            </div>
-          </div>
+          <CommentFeed post={post} />
         </section>
 
         <aside className="bg-white rounded p-4 w-full md:w-1/4 sticky top-[100px] right-0">
