@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 import { useAuthContext } from "../contexts/AuthContext";
 import AuthCheck from "./AuthCheck";
-
-const comments = [1, 2, 3];
+import * as request from "../lib/request";
 
 const CommentFeed = ({ post }) => {
   return (
-    <div className="w-full bg-white p-8 border-t border-black">
+    <div className="w-full bg-white p-8 border-t border-black" id="comments">
       <h3 className="font-bold text-2xl mb-6">Discussion: </h3>
 
       <AuthCheck
@@ -21,43 +22,64 @@ const CommentFeed = ({ post }) => {
       >
         <CommentForm postId={post._id} />
       </AuthCheck>
-      {/* post.comments.map */}
-      {comments.map((x) => (
-        <CommentItem key={x} />
+      {post.comments.map((x) => (
+        <CommentItem key={x._id} comment={x} />
       ))}
     </div>
   );
 };
 
-const CommentItem = () => {
+const CommentItem = ({ comment }) => {
+  const createdAt = new Date(comment.createdAt).toDateString();
   return (
     <div className="flex align-top gap-2 mb-6">
-      {/* Link to profile of user */}
-      <div className="w-8 h-8 cursor-pointer">
-        <img src={`/img/hacker.jpg`} />
-      </div>
+      <Link href={`/${comment.owner_username}`}>
+        <div className="w-8 h-8 cursor-pointer rounded-full overflow-hidden">
+          <img src={comment?.owner_avatar || `/img/hacker.jpg`} />
+        </div>
+      </Link>
       <div className="p-2 border border-[#b5bdc4] rounded w-full">
         <div className="">
-          <button className="p-1 font-bold hover:bg-[#f6f6f6] rounded">
-            {/* Link to user profile */}
-            pesho12
-          </button>{" "}
-          18 Jul
+          <Link href={`/${comment.owner_username}`}>
+            <button className="p-1 font-bold hover:bg-[#f6f6f6] rounded">
+              {comment.owner_username}
+            </button>
+          </Link>{" "}
+          {createdAt}
         </div>
 
-        <div className="p-1">Very interesting post. Love it </div>
+        <div className="p-1">{comment.content}</div>
       </div>
     </div>
   );
 };
 
 const CommentForm = ({ postId }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: { content: "" },
+  });
   const { user } = useAuthContext();
+  const router = useRouter();
+  const query = router.query;
 
-  const addCommentHandler = async (data) => {
-    console.log(data);
-    console.log(postId);
+  const addCommentHandler = async ({ content }) => {
+    try {
+      const body = {
+        postId,
+        owner_avatar: user.avatar,
+        owner_username: user.username,
+        content,
+      };
+
+      await request.post("/post/addComment", body);
+
+      toast.success("Successfully added comment");
+      reset({ content: "" });
+      router.push(`/${query.username}/${query.slug}`);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
   return (
     <form onSubmit={handleSubmit(addCommentHandler)}>

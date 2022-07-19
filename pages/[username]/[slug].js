@@ -28,7 +28,7 @@ export async function getServerSideProps({ params }) {
 
   const user = JSON.parse(JSON.stringify(userDoc));
 
-  let postDoc = await Post.findOne({ slug }).lean();
+  let postDoc = await Post.findOne({ slug }).populate("comments").lean();
 
   if (!postDoc) {
     return {
