@@ -6,13 +6,17 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    owner: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
+    owner_username: {
+      type: String,
+      required: true,
+    },
+    owner_avatar: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model.Comment ||
-  mongoose.models("Comment", commentSchema);
+export default mongoose.models.Comment ||
+  mongoose.model("Comment", commentSchema);
