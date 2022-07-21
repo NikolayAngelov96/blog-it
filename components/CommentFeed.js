@@ -38,7 +38,7 @@ const CommentItem = ({ comment }) => {
           <img src={comment?.owner_avatar || `/img/hacker.jpg`} />
         </div>
       </Link>
-      <div className="p-2 border border-[#b5bdc4] rounded w-full">
+      <div className="p-2 border border-[#b5bdc4] rounded w-10/12">
         <div className="">
           <Link href={`/${comment.owner_username}`}>
             <button className="p-1 font-bold hover:bg-[#f6f6f6] rounded">
@@ -66,12 +66,10 @@ const CommentForm = ({ postId }) => {
     try {
       const body = {
         postId,
-        owner_avatar: user.avatar,
-        owner_username: user.username,
         content,
       };
 
-      await request.post("/post/addComment", body);
+      await request.post("/post/addComment", body, user);
 
       toast.success("Successfully added comment");
       reset({ content: "" });
@@ -91,7 +89,7 @@ const CommentForm = ({ postId }) => {
           className="border border-[#b5bdc4] rounded w-10/12 p-4"
           {...register("content")}
         ></textarea>
-        <button className="w-full py-3 bg-[#3b49df] text-white rounded">
+        <button className="w-10/12 sm:ml-10 py-3 bg-[#3b49df] text-white rounded">
           Comment
         </button>
       </div>
