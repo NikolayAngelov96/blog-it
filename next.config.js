@@ -43,6 +43,15 @@ module.exports = {
           },
         ],
       },
+      {
+        source: "/post/addComment",
+        headers: [
+          {
+            key: "X-Authorization",
+            value: "",
+          },
+        ],
+      },
     ];
   },
 };
