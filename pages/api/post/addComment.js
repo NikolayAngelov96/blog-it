@@ -1,6 +1,9 @@
+import * as jwt from "jsonwebtoken";
 import dbConnect from "../../../lib/dbConnect";
 import Comment from "../../../models/Comment";
 import Post from "../../../models/Post";
+
+const SECRET = process.env.JWT_SECRET;
 
 export default async function handler(req, res) {
   if (req.method != "POST") {
@@ -8,9 +11,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { content, postId, owner_username, owner_avatar } = req.body;
+    const token = req.headers["x-authorization"];
 
-    if (!content || !postId || !owner_username) {
+    const payload = jwt.verify(token, SECRET);
+
+    const { content, postId } = req.body;
+
+    if (!content || !postId) {
       throw new Error("All fields are required");
     }
 
@@ -18,8 +25,8 @@ export default async function handler(req, res) {
 
     const comment = await Comment.create({
       content,
-      owner_username,
-      owner_avatar,
+      owner_username: payload.username,
+      owner_avatar: payload.avatar,
     });
 
     const post = await Post.findById(postId);
