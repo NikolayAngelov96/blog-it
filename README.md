@@ -86,6 +86,18 @@ And if the user is **owner** of the post. He'll see **`Edit`** and **`Delete`** 
 
 ![post-owner](https://user-images.githubusercontent.com/103751145/177942554-56ac53b4-8e7e-43f1-a94f-866e62e9178d.png)
 
+### Comments
+Every post can have comments, which contains **content**, **createdAt date**, **username** and **avatar** of the user who placed the comment.
+
+All users can browse the comments for every post, but in order to **place a comment on a post**, you must be logged in.
+
+![comment-user](https://user-images.githubusercontent.com/103751145/180784839-c569c9a5-0ef2-4d3d-a205-4f812937bffa.png)
+
+If you're not logged in in the comments section, there'll be a Link to the **Login page**.
+
+![comment-no-user](https://user-images.githubusercontent.com/103751145/180785037-a4a6b655-21a0-4212-a130-a38b88be9bee.png)
+
+
 ### Public User Profile
 
 The public profile is on **`/[username]`** and here you can see info about the user **email**, **username** and all posts written by that user.
