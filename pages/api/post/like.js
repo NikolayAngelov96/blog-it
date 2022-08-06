@@ -10,6 +10,12 @@ export default async function handler(req, res) {
 
       const post = await Post.findById(postId);
 
+      const isLiked = post.hearts.some((x) => x == userId);
+
+      if (isLiked) {
+        throw new Error("You already liked this post");
+      }
+
       if (!post) {
         throw new Error("No such post in database");
       }
