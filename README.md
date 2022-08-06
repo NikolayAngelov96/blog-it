@@ -52,11 +52,17 @@ If error occurs(either there is no such email or password is wrong) it gives you
 
 ### Register
 
-You can create an account by entering **`email`**, **`username`** and **`password`**. Then the server will take this data **hash** the password and save it to the database.
+You can create an account by entering **`email`**, **`username`**, **`password`** and optionally **`avatar`**.
 
-If there are empty fields the UI will display message with the required fields.
+The **avatar** must be a valid URL. If the field is empty, the created profile will have default avatar image.
+
+![register-avatarUrl](https://user-images.githubusercontent.com/103751145/183246225-7ae2db97-57cc-4a05-b2cb-d3a7c44e3e6c.png)
+
+If any of the other field are empty or doesn't match the requirements the UI will display a message.
 
 ![register-form-validation](https://user-images.githubusercontent.com/103751145/177942291-c6f4f2f1-67b0-47b0-9d3e-5be9ed0c303d.png)
+
+Then the server will take this data **hash** the password and save it to the database.
 
 ### Home
 
