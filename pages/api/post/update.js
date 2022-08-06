@@ -15,6 +15,12 @@ export default async function handler(req, res) {
 
       await dbConnect();
 
+      const post = await Post.findById(postId);
+
+      if (payload._id != post.owner) {
+        throw new Error("You are not authorized to change this post");
+      }
+
       await Post.findByIdAndUpdate(postId, { content, published });
 
       res.status(200).json({ message: "Successfully updated" });
